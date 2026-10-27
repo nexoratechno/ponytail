@@ -22,7 +22,8 @@
             "timeout": 15,
             "statusMessage": "Loading ponytail mode..."
           }
-        ]
+        ],
+        "matcher": "^(general-purpose|fullstack-developer|worker-critical|code-simplifier|refactoring-specialist)$"
       }
     ],
     "UserPromptSubmit": [

@@ -12,9 +12,11 @@
 
 const { getPonytailInstructions } = require('./ponytail-instructions');
 const { readMode, writeHookOutput } = require('./ponytail-runtime');
+const { getSubagentMode } = require('./ponytail-config');
 const vm = require('vm');
 
-const mode = readMode();
+// forge: an explicit subagent level wins over the session's live flag.
+const mode = getSubagentMode() || readMode();
 
 // Absent flag or off → ponytail isn't active; inject nothing.
 if (!mode || mode === 'off') {

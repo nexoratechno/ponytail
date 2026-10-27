@@ -138,6 +138,21 @@ function getHideStatus() {
   }
 }
 
+// forge: subagents get their own level so the lead session can stay off
+// (depth and trade-off work) while implementers run lazy. Resolution:
+// PONYTAIL_SUBAGENT_MODE env, then config.subagentMode, else null = follow the
+// session's live mode (upstream behaviour).
+function getSubagentMode() {
+  const envMode = normalizeMode(process.env.PONYTAIL_SUBAGENT_MODE);
+  if (envMode) return envMode;
+  try {
+    const config = JSON.parse(fs.readFileSync(getConfigPath(), 'utf8').replace(/^\uFEFF/, ''));
+    return normalizeMode(config.subagentMode);
+  } catch (_) {
+    return null;
+  }
+}
+
 function writeDefaultMode(mode) {
   // ponytail: only a runtime level can be a default; review is session-only (#377).
   const normalized = normalizeMode(mode);
@@ -160,6 +175,7 @@ module.exports = {
   VALID_MODES,
   RUNTIME_MODES,
   getDefaultMode,
+  getSubagentMode,
   getConfigDir,
   getConfigPath,
   getClaudeDir,

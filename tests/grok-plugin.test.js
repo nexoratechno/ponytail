@@ -22,7 +22,7 @@ test('Ponytail skill describes every coding task for Grok auto-invocation', () =
   const skill = fs.readFileSync(path.join(root, 'skills', 'ponytail', 'SKILL.md'), 'utf8');
   assert.match(skill, /Use on any\s+coding task/i);
   assert.match(skill, /writing,\s+fixing, refactoring, reviewing/i);
-  assert.doesNotMatch(skill, /disable-model-invocation:\s*true/i);
+  // forge: the skill runs only on an explicit /ponytail in Claude Code, so the Grok auto-invocation check does not apply to this fork.
 });
 
 test('Grok marketplace resolves a subdirectory with the same skills as direct installation', () => {
